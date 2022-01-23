@@ -93,8 +93,9 @@ $app->configure('app');
 // $app->register(App\Providers\AppServiceProvider::class);
 // $app->register(App\Providers\AuthServiceProvider::class);
 // $app->register(App\Providers\EventServiceProvider::class);
-$app->register(JD\Cloudder\CloudderServiceProvider::class);
 /*
+$app->register(JD\Cloudder\CloudderServiceProvider::class);
+
 |--------------------------------------------------------------------------
 | Load The Application Routes
 |--------------------------------------------------------------------------
@@ -104,7 +105,7 @@ $app->register(JD\Cloudder\CloudderServiceProvider::class);
 | can respond to, as well as the controllers that may handle them.
 |
 */
-
+$app->register(JD\Cloudder\CloudderServiceProvider::class);
 $app->router->group([
     'namespace' => 'App\Http\Controllers',
 ], function ($router) {
