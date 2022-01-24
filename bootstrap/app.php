@@ -76,9 +76,9 @@ $app->configure('app');
 //     App\Http\Middleware\ExampleMiddleware::class
 // ]);
 
-// $app->routeMiddleware([
-//     'auth' => App\Http\Middleware\Authenticate::class,
-// ]);
+$app->routeMiddleware([
+    'auth' => App\Http\Middleware\Authenticate::class,
+]);
 
 /*
 |--------------------------------------------------------------------------
@@ -91,10 +91,10 @@ $app->configure('app');
 |
 *
 // $app->register(App\Providers\AppServiceProvider::class);
-// $app->register(App\Providers\AuthServiceProvider::class);
 // $app->register(App\Providers\EventServiceProvider::class);
-$app->register(JD\Cloudder\CloudderServiceProvider::class);
 /*
+$app->register(JD\Cloudder\CloudderServiceProvider::class);
+
 |--------------------------------------------------------------------------
 | Load The Application Routes
 |--------------------------------------------------------------------------
@@ -105,6 +105,9 @@ $app->register(JD\Cloudder\CloudderServiceProvider::class);
 |
 */
 
+$app->register(App\Providers\AuthServiceProvider::class);
+$app->register(Tymon\JWTAuth\Providers\LumenServiceProvider::class);
+$app->register(JD\Cloudder\CloudderServiceProvider::class);
 $app->router->group([
     'namespace' => 'App\Http\Controllers',
 ], function ($router) {
