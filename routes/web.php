@@ -24,3 +24,4 @@ $router->group(['prefix' => 'auth'], function () use ($router){
 });
 
 $router->post('/upload', 'ImageController@upload');
+$router->get('send_email' ,'Mailcontroller@mail');
