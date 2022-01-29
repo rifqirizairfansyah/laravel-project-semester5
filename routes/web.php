@@ -23,4 +23,7 @@ $router->group(['prefix' => 'auth'], function () use ($router){
 
 });
 
-$router->post('/upload', 'ImageController@upload');
+Route::group(['middleware' => ['auth']], function ($router) {
+
+    $router->post('/upload', 'ImageController@upload');
+});
