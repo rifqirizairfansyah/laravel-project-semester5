@@ -20,6 +20,7 @@ class Topups extends Migration
             $table->timestamp('tanggal', $precision = 0);
             $table->integer('id_reksadana');
             $table->integer('bank');
+            $table->timestamps();
         });
     }
 

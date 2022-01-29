@@ -23,6 +23,7 @@ class Portofolios extends Migration
             $table->integer('keuntungan');
             $table->integer('imba_hasil');
             $table->integer('reksadana_id');
+            $table->timestamps();
         });
     }
 
