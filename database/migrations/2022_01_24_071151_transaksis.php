@@ -14,7 +14,7 @@ class Transaksis extends Migration
     public function up()
     {
         //
-        Schema::create('transaksis', function (Blueprint $table) {
+        Schema::create('transakses', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('no_order', 100);
             $table->integer('nilai_jual');
@@ -35,6 +35,6 @@ class Transaksis extends Migration
     public function down()
     {
 
-        Schema::dropIfExists('transaksis');
+        Schema::dropIfExists('transakses');
     }
 }

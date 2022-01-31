@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Topups;
+use App\Models\Transakses;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class PaymentController extends Controller
+class TransaksesController extends Controller
 {
     public function index(Request $request)
     {
@@ -14,7 +14,7 @@ class PaymentController extends Controller
 
         if($acceptHeader === 'application/json' || $acceptHeader === 'application/xml')
         {
-            $post = Topups::OrderBy("id", "DESC")->paginate(2)->toArray();
+            $post = Transakses::OrderBy("id", "DESC")->paginate(2)->toArray();
 
             if ($acceptHeader === 'application/json') {
                $response = [
@@ -47,10 +47,13 @@ class PaymentController extends Controller
             {
                 $input = $request->all();
                 $validationRules = [
-                    'jumlah_topup' => 'required|min:3',
-                    'tanggal' => 'required|min:1',
-                    'id_reksadana' => 'required|min:1',
-                    'bank' => 'required|min:1'
+                    'no_order' => 'required|min:5',
+                    'nilai_jual' => 'required|min:1',
+                    'jenis_transaksi' => 'required|min:3',
+                    'reksadana_id' => 'required|min:1',
+                    'jumlah_unit' => 'required|min:1',
+                    'rekening_id' => 'required|min:1',
+                    'status' => 'required|min:1',
                 ];
                 $validator = \Validator::make($input, $validationRules);
 
@@ -59,7 +62,7 @@ class PaymentController extends Controller
                     return response()->json($validator->errors(), 400);
                 }
 
-                $post = Topups::create($input);
+                $post = Transakses::create($input);
                 return response()->json($post, 200);
             } else {
                 return response('Unsupported Media', 415);
@@ -69,11 +72,10 @@ class PaymentController extends Controller
         }
     }
 
-
     public function getById($id)
     {
-        $post = Performas::find($id);
 
+        $post = Transakses::find($id);
         if(!$post){
             abort(404);
         }
@@ -115,6 +117,19 @@ class PaymentController extends Controller
 
         return response()->json($post, 200);
 
+    }
+
+    public function deleteById($id){
+        $post = Portofolios::find($id);
+
+        if(!$post){
+            abort(404);
+        }
+        $post->delete();
+        $message = ['message' => 'Berhasil Dihapus', 'id' => $id];
+
+
+        return response()->json($message, 200);
     }
 }
 

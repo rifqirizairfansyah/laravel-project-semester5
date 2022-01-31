@@ -42,5 +42,29 @@ Route::group(['middleware' => ['auth']], function ($router) {
 
 
 
+// Transaksi / Payment
+Route::group(['middleware' => ['auth']], function ($router) {
+    $router->post('/payment', 'PaymentController@create');
+    $router->get('/transaksi/history', 'TransaksesController@index');
+    $router->get('/transaksi/history/getById/{id}', 'TransaksesController@getById');
+});
+
+
+// Reksadana
+Route::group(['middleware' => ['auth']], function ($router) {
+    $router->get('/reksadana', 'ReksadanaController@index');
+    $router->get('/reksadana/getById/{id}', 'ReksadanaController@getById');
+    // $router->post('/performa/create', 'PerformaController@create');
+});
+
+// Profile
+Route::group(['middleware' => ['auth']], function ($router) {
+    $router->get('/users/profile/{id}', 'UsersController@getById');
+    $router->put('/users/update/{id}', 'UsersController@updateById');
+});
+
+
+
+
 $router->post('/upload', 'ImageController@upload');
 $router->get('send_email' ,'Mailcontroller@mail');
