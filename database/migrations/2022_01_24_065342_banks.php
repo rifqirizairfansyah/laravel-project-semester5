@@ -15,9 +15,11 @@ class Banks extends Migration
     {
         Schema::create('banks', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('nama_lengkap_pengguna', 100);
             $table->string('nama_bank', 100);
             $table->string('jenis_bank', 100);
             $table->integer('no_rekening');
+            $table->timestamps();
         });
     }
 

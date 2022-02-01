@@ -5,6 +5,6 @@
 
     class Topups extends Model
     {
-        protected $fillable = array('id', 'jumlah_topup', 'tanggal', 'id_reksadana', 'bank');
+        protected $fillable = array('id', 'jumlah_topup', 'nama_lengkap', 'tanggal', 'id_reksadana', 'bank');
     }
 ?>

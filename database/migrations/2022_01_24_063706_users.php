@@ -17,6 +17,7 @@ class Users extends Migration
             $table->bigIncrements('id');
             $table->string('username', 100);
             $table->string('password', 100);
+            $table->string('email', 100);
             $table->string('nama_lengkap', 100);
             $table->integer('umur');
             $table->string('status_pernikahan', 100);

@@ -3,38 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Models\Topups;
+use App\Models\ListReksadana;
+use App\Models\Users;
+use App\Models\UserReksadana;
+use App\Models\Transakses;
+use App\Models\Banks;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class PaymentController extends Controller
 {
-    public function index(Request $request)
-    {
-        $acceptHeader = $request->header('Accept');
-
-        if($acceptHeader === 'application/json' || $acceptHeader === 'application/xml')
-        {
-            $post = Topups::OrderBy("id", "DESC")->paginate(2)->toArray();
-
-            if ($acceptHeader === 'application/json') {
-               $response = [
-                   "total_count" => $post["total"],
-                   "limit" => $post["per_page"],
-                   "pagination" => [
-                       "next_page" => $post['next_page_url'],
-                       "current_page" => $post['current_page']
-                   ],
-                   "data" => $post["data"],
-                ];
-               return response()->json($response, 200);
-            }
-        }
-        else
-        {
-            return response('Not Acceptable', 406);
-        }
-    }
-
     public function create(Request $request)
     {
         $acceptHeader = $request->header('Accept');
@@ -50,7 +28,8 @@ class PaymentController extends Controller
                     'jumlah_topup' => 'required|min:3',
                     'tanggal' => 'required|min:1',
                     'id_reksadana' => 'required|min:1',
-                    'bank' => 'required|min:1'
+                    'bank' => 'required|min:1',
+                    'nama_lengkap' => 'required|min:1',
                 ];
                 $validator = \Validator::make($input, $validationRules);
 
@@ -59,8 +38,45 @@ class PaymentController extends Controller
                     return response()->json($validator->errors(), 400);
                 }
 
-                $post = Topups::create($input);
-                return response()->json($post, 200);
+                $nama_lengkap = $request->input('nama_lengkap');
+                $id_reksadana = $request->input('id_reksadana');
+                $tanggal = $request->input('tanggal');
+                $jumlah_topup = $request->input('jumlah_topup');
+                $id_reksadana = $request->input('id_reksadana');
+                $bank = $request->input('bank');
+
+                $getListReksadana = ListReksadana::find($id_reksadana);
+                $getUser = Users::where('nama_lengkap', $nama_lengkap)->first();
+
+
+                $post = Topups::create([
+                    'nama_lengkap' => $nama_lengkap,
+                    'jumlah_topup' => $jumlah_topup,
+                    'tanggal' => $tanggal,
+                    'id_reksadana' => $id_reksadana,
+                    'bank' => $bank
+                ]);
+
+                $Transakses = Transakses::create([
+                    'no_order' => substr(base_convert(sha1(uniqid(mt_rand())), 16, 36), 0, 5),
+                    'nilai_jual' => $getListReksadana->biaya_penjualan,
+                    'jenis_transaksi' => 'Pembelian',
+                    'reksadana_id' => $id_reksadana,
+                    'jumlah_unit' => 100,
+                    'rekening_id' => $bank,
+                    'status' => 'Berhasil'
+                ]);
+
+                $UserReksadana = UserReksadana::create([
+                    'user_id' => $getUser->id,
+                    'reksadana_id' => $id_reksadana,
+                    'jumlah_unit' => 100,
+                    'nilai_portofolio' =>  $getListReksadana->biaya_penjualan,
+                    'keuntungan' => $getListReksadana->biaya_penjualan,
+                    'imba_hasil' => 500
+                ]);
+
+                return response()->json($UserReksadana, 200);
             } else {
                 return response('Unsupported Media', 415);
             }
@@ -70,52 +86,6 @@ class PaymentController extends Controller
     }
 
 
-    public function getById($id)
-    {
-        $post = Performas::find($id);
-
-        if(!$post){
-            abort(404);
-        }
-
-        return response()->json($post, 200);
-    }
-
-
-    public function updateById(Request $request, $id)
-    {
-
-        $input = $request->all();
-
-        $post = Portofolios::find($id);
-
-        if(!$post){
-            abort(404);
-        }
-
-        $validationRules = [
-            'nama_portofolio' => 'required|min:5',
-            'target_dana' => 'required|min:1',
-            'tanggal_tercapai' => 'required|min:3',
-            'nilai_portofolio' => 'required|min:1',
-            'keuntungan' => 'required|min:1',
-            'imba_hasil' => 'required|min:1',
-            'reksadana_id' => 'required|min:1',
-
-        ];
-        $validator = \Validator::make($input, $validationRules);
-
-        if($validator->fails())
-        {
-            return response()->json($validator->errors(), 400);
-        }
-
-        $post->fill($input);
-        $post->save();
-
-        return response()->json($post, 200);
-
-    }
 }
 
 ?>

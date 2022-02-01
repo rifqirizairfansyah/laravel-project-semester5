@@ -12,16 +12,18 @@ class SendMail extends Mailable
 {
     use Queueable, SerializesModels;
     public $username;
+    public $fullname;
     /**
      * Create a new message instance.
      *
      * @return void
      */
     public $user;
-    public function __construct($username)
+    public function __construct($username, $fullname)
     {
         //
         $this->username = $username;
+        $this->fullname = $fullname;
     }
 
     /**
@@ -31,6 +33,8 @@ class SendMail extends Mailable
      */
     public function build()
     {
-        return $this->view('mail');
+        return $this->markdown('emails.mail')
+            ->subject("Konfirmasi Email | Bibit")
+            ->view('emails.mail');
     }
 }

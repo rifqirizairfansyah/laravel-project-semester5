@@ -13,12 +13,9 @@ class MailController extends Controller
         $data = array('username' => 'rifqi');
         $to_name = "rifq riza irfansyah";
         $to_email = "rizairfansyahrifqi@gmail.com";
-        $response =  Mail::send('mail', $data, function ($message) use ($to_name, $to_email) {
-            $message->to($to_email, $to_name)->subject('Test Mail');
-            $message->from('rifqibatch@gmail.com', 'RIfqi Batch');
-        });
+        Mail::to($to_email)->send(new SendMail($to_name));
 
-        return response($response)->json(200);
+        return response()->json(200);
     }
 }
 
