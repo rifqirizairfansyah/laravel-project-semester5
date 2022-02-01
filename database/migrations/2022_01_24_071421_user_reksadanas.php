@@ -22,6 +22,7 @@ class UserReksadanas extends Migration
             $table->integer('nilai_portofolio');
             $table->integer('keuntungan');
             $table->integer('imba_hasil');
+            $table->timestamps();
         });
     }
 

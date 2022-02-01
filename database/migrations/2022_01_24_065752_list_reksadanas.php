@@ -14,7 +14,7 @@ class ListReksadanas extends Migration
     public function up()
     {
         //
-        Schema::create('list_reksadana', function (Blueprint $table) {
+        Schema::create('list_reksadanas', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('nama_reksadana', 100);
             $table->integer('biaya_pembelian');
@@ -32,6 +32,6 @@ class ListReksadanas extends Migration
     public function down()
     {
 
-        Schema::dropIfExists('list_reksadana');
+        Schema::dropIfExists('list_reksadanas');
     }
 }

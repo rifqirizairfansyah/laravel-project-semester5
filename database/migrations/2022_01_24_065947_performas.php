@@ -21,6 +21,7 @@ class Performas extends Migration
             $table->integer('keuntungan_terealisasi');
             $table->integer('total_pembelian');
             $table->integer('total_penjualan');
+            $table->timestamps();
         });
     }
 

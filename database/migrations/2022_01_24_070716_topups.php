@@ -16,10 +16,12 @@ class Topups extends Migration
         //
         Schema::create('topups', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('nama_lengkap', 100);
             $table->integer('jumlah_topup');
             $table->timestamp('tanggal', $precision = 0);
             $table->integer('id_reksadana');
             $table->integer('bank');
+            $table->timestamps();
         });
     }
 
