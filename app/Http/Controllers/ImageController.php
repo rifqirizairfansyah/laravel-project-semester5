@@ -3,6 +3,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Cloudder;
+
 class ImageController
 {
     public function upload(Request $request)
