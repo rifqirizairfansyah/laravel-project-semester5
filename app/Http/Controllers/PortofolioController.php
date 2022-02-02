@@ -108,4 +108,40 @@ class PortofolioController extends Controller
 
         return response()->json($post, 200);
     }
+
+
+    public function updateById(Request $request, $id)
+    {
+
+        $input = $request->all();
+
+        $post = Portofolios::find($id);
+
+        if(!$post){
+            abort(404);
+        }
+
+        $validationRules = [
+            'nama_portofolio' => 'required|min:5',
+            'target_dana' => 'required|min:1',
+            'tanggal_tercapai' => 'required|min:3',
+            'nilai_portofolio' => 'required|min:1',
+            'keuntungan' => 'required|min:1',
+            'imba_hasil' => 'required|min:1',
+            'reksadana_id' => 'required|min:1',
+
+        ];
+        $validator = \Validator::make($input, $validationRules);
+
+        if($validator->fails())
+        {
+            return response()->json($validator->errors(), 400);
+        }
+
+        $post->fill($input);
+        $post->save();
+
+        return response()->json($post, 200);
+
+    }
 }
