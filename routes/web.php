@@ -36,6 +36,14 @@ Route::group(['middleware' => ['auth']], function ($router) {
     // $router->post('/performa/create', 'PerformaController@create');
 });
 
+Route::group(['middleware' => ['auth']], function ($router) {
+    $router->get('/portfolio', 'PortofolioController@index');
+    $router->post('/portfolio/create', 'PortofolioController@create');
+    $router->get('/portfolio/getById/{id}', 'PortofolioController@getById');
+    $router->put('/portfolio/update/{id}', 'PortofolioController@updateById');
+    $router->delete('/portfolio/delete/{id}', 'PortofolioController@deleteById');
+});
+
 // Profile
 Route::group(['middleware' => ['auth']], function ($router) {
     $router->get('/users/profile/{id}', 'UsersController@getById');
