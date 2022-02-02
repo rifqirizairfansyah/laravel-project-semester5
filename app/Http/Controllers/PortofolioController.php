@@ -12,7 +12,6 @@ class PortofolioController extends Controller
     public function index(Request $request)
     {
         $acceptHeader = $request->header('Accept');
-
         if($acceptHeader === 'application/json' || $acceptHeader === 'application/xml')
         {
             $post = Portofolios::OrderBy("id", "DESC")->paginate(2)->toArray();
