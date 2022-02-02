@@ -269,7 +269,6 @@
         {
             "name": "doctrine/inflector",
             "version": "2.0.4",
-            "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/inflector.git",
                 "reference": "8b7ff3e4b7de6b2c84da85637b59fd2880ecaa89"
