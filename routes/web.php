@@ -38,6 +38,7 @@ Route::group(['middleware' => ['auth']], function ($router) {
 
 Route::group(['middleware' => ['auth']], function ($router) {
     $router->get('/portfolio', 'PortofolioController@index');
+    $router->get('/portfolio/getById/{id}', 'PortofolioController@getById');
 });
 
 // Profile

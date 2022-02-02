@@ -34,4 +34,17 @@ class PortofolioController extends Controller
             return response('Not Acceptable', 406);
         }
     }
+
+    public function getById($id)
+    {
+        $post = Portofolios::join('list_reksadanas', 'list_reksadanas.id', '=', 'portofolios.reksadana_id')
+        ->where('portofolios.id', $id)
+        ->get();
+
+        if(!$post){
+            abort(404);
+        }
+
+        return response()->json($post, 200);
+    }
 }
