@@ -34,4 +34,14 @@ class PerformaController extends Controller
             return response('Not Acceptable', 406);
         }
     }
+    public function getById($id)
+    {
+        $post = Performas::find($id);
+
+        if(!$post){
+            abort(404);
+        }
+
+        return response()->json($post, 200);
+    }
 }
