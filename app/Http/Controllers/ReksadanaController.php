@@ -35,4 +35,17 @@ class ReksadanaController extends Controller
         }
     }
 
+    public function getById($id)
+    {
+        $post = ListReksadana::join('jenis_reksadanas', 'jenis_reksadanas.id', '=', 'list_reksadanas.jenis_produk')
+        // ->select('portofolios.*', 'list_reksadana.nama_reksadana')
+        ->get();
+
+        if(!$post){
+            abort(404);
+        }
+
+        return response()->json($post, 200);
+    }
+
 }

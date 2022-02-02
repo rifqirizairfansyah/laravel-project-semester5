@@ -39,6 +39,7 @@ Route::group(['middleware' => ['auth']], function ($router) {
 
 Route::group(['middleware' => ['auth']], function ($router) {
     $router->get('/reksadana', 'ReksadanaController@index');
+    $router->get('/reksadana/getById/{id}', 'ReksadanaController@getById');
 });
 
 Route::group(['middleware' => ['auth']], function ($router) {
