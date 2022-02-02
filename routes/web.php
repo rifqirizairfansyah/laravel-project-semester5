@@ -23,25 +23,6 @@ $router->group(['prefix' => 'auth'], function () use ($router){
 
 });
 
-// Portofolio
-Route::group(['middleware' => ['auth']], function ($router) {
-    $router->get('/portfolio', 'PortofolioController@index');
-    $router->get('/portfolio/getById/{id}', 'PortofolioController@getById');
-    $router->post('/portfolio/create', 'PortofolioController@create');
-    $router->put('/portfolio/update/{id}', 'PortofolioController@updateById');
-    $router->delete('/portfolio/delete/{id}', 'PortofolioController@deleteById');
-});
-
-
-// Performa
-Route::group(['middleware' => ['auth']], function ($router) {
-    $router->get('/performa', 'PerformaController@index');
-    $router->get('/performa/getById/{id}', 'PerformaController@getById');
-    $router->post('/performa/create', 'PerformaController@create');
-});
-
-
-
 // Transaksi / Payment
 Route::group(['middleware' => ['auth']], function ($router) {
     $router->post('/payment', 'PaymentController@create');
