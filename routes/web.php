@@ -36,6 +36,10 @@ Route::group(['middleware' => ['auth']], function ($router) {
     // $router->post('/performa/create', 'PerformaController@create');
 });
 
+Route::group(['middleware' => ['auth']], function ($router) {
+    $router->get('/portfolio', 'PortofolioController@index');
+});
+
 // Profile
 Route::group(['middleware' => ['auth']], function ($router) {
     $router->get('/users/profile/{id}', 'UsersController@getById');
