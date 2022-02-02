@@ -41,6 +41,7 @@ Route::group(['middleware' => ['auth']], function ($router) {
     $router->post('/portfolio/create', 'PortofolioController@create');
     $router->get('/portfolio/getById/{id}', 'PortofolioController@getById');
     $router->put('/portfolio/update/{id}', 'PortofolioController@updateById');
+    $router->delete('/portfolio/delete/{id}', 'PortofolioController@deleteById');
 });
 
 // Profile

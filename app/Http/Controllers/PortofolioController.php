@@ -144,4 +144,18 @@ class PortofolioController extends Controller
         return response()->json($post, 200);
 
     }
+
+
+    public function deleteById($id){
+        $post = Portofolios::find($id);
+
+        if(!$post){
+            abort(404);
+        }
+        $post->delete();
+        $message = ['message' => 'Berhasil Dihapus', 'id' => $id];
+
+
+        return response()->json($message, 200);
+    }
 }
