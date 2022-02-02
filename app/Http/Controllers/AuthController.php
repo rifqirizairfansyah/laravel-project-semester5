@@ -80,7 +80,7 @@ class AuthController extends Controller
         $bank->no_rekening = $request->input('no_rekening');
         $bank->save();
 
-        Mail::to($email)->send(new SendMail($username, $nama_lengkap));
+        // Mail::to($email)->send(new SendMail($username, $nama_lengkap));
 
         return response()->json($user, 200);
     }
