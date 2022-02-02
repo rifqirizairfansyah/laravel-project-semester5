@@ -35,7 +35,10 @@ Route::group(['middleware' => ['auth']], function ($router) {
 Route::group(['middleware' => ['auth']], function ($router) {
     $router->get('/performa', 'PerformaController@index');
     $router->get('/performa/getById/{id}', 'PerformaController@getById');
-    $router->post('/performa/create', 'PerformaController@create');
+});
+
+Route::group(['middleware' => ['auth']], function ($router) {
+    $router->get('/reksadana', 'ReksadanaController@index');
 });
 
 Route::group(['middleware' => ['auth']], function ($router) {
