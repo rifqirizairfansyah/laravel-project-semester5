@@ -33,7 +33,13 @@ Route::group(['middleware' => ['auth']], function ($router) {
 
 // Reksadana
 Route::group(['middleware' => ['auth']], function ($router) {
-    // $router->post('/performa/create', 'PerformaController@create');
+    $router->get('/performa', 'PerformaController@index');
+    $router->get('/performa/getById/{id}', 'PerformaController@getById');
+});
+
+Route::group(['middleware' => ['auth']], function ($router) {
+    $router->get('/reksadana', 'ReksadanaController@index');
+    $router->get('/reksadana/getById/{id}', 'ReksadanaController@getById');
 });
 
 Route::group(['middleware' => ['auth']], function ($router) {
