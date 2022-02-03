@@ -72,5 +72,14 @@ class TransaksesController extends Controller
         }
     }
 
+    public function getById($id)
+    {
 
+        $post = Transakses::find($id);
+        if(!$post){
+            abort(404);
+        }
+
+        return response()->json($post, 200);
+    }
 }
